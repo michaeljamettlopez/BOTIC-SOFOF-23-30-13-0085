@@ -1,1 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas Pendientes</title>
+    <link rel="stylesheet" href="mn.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Tareas Pendientes</h1>
+        <button id="toggleForm">Agregar tarea</button>
+        <div id="taskForm" class="hidden">
+            <input type="text" id="taskInput" placeholder="Escribe tu tarea aquí" />
+            <button id="addTask">Agregar</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tarea</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="taskList"></tbody>
+        </table>
+    </div>
+    <script src="vg.js"></script>
+</body>
+</html>
+
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    margin: 10px 0;
+}
+
+.hidden {
+    display: none;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+
+
+
+
+document.getElementById('toggleForm').addEventListener('click', function() {
+    const form = document.getElementById('taskForm');
+    form.classList.toggle('hidden');
+});
+
+document.getElementById('addTask').addEventListener('click', function() {
+    const taskInput = document.getElementById('taskInput');
+    const taskText = taskInput.value.trim();
+
+    if (taskText) {
+        const taskList = document.getElementById('taskList');
+        const newRow = document.createElement('tr');
+
+        newRow.innerHTML = `
+            <td>${taskText}</td>
+            <td><button class="finishTask">Finalizar</button></td>
+        `;
+        
+        taskList.appendChild(newRow);
+        taskInput.value = '';
+        document.getElementById('taskForm').classList.add('hidden');
+
+        newRow.querySelector('.finishTask').addEventListener('click', function() {
+            taskList.removeChild(newRow);
+        });
+    } else {
+        alert('Por favor, ingresa una tarea.');
+    }
+});
+
+
+
+
+
+
+
 
